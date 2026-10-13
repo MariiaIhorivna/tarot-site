@@ -260,7 +260,7 @@ section {
 }
 
 .feedback-card {
-  flex: 0 0 400px;               
+  flex: 0 0 300px;               
   scroll-snap-align: start;      
   background: var(--primary-color);
   padding: 20px;
