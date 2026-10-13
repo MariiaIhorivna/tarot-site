@@ -32,10 +32,19 @@ nextBtn.addEventListener('click', () => {
     });
 });
 
-// Кнопка "Назад"
 prevBtn.addEventListener('click', () => {
     slider.scrollBy({
         left: -getScrollAmount(), 
         behavior: 'smooth'        
+    });
+});
+
+const questionCards = document.querySelectorAll('.question-card');
+
+questionCards.forEach(card => {
+    const button = card.querySelector('.qtn-btn');
+
+    button.addEventListener('click', () => {
+        card.classList.toggle('_active');
     });
 });
