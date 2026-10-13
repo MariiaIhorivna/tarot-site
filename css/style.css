@@ -58,6 +58,10 @@ body::before {
   z-index: -1;
 }
 
+body._lock {
+  overflow: hidden;
+}
+
 .page-content {
   position: relative;
   z-index: 1; 
@@ -144,7 +148,7 @@ h1 {
 }
 
 .btn-num {
-    font-size: 2rem;
+    font-size: 1.6rem;
     background-color: var(--primary-color);
     text-decoration: none;
     color: var(--text-color);
@@ -162,6 +166,24 @@ h1 {
     width: 35px;  
     height: 30px; 
     padding: 8px 0 0 8px;
+    margin-left: 4px;
+}
+
+.burger-btn-menu._active {
+  position: fixed;
+  z-index: 2;
+}
+
+.burger-btn-menu._active .burger-line:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.burger-btn-menu._active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-btn-menu._active .burger-line:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 .burger-line {
@@ -173,6 +195,7 @@ h1 {
 
 .menu {
     position: fixed;
+    z-index: 1;
     top: 0;
     left: -100%;
     width: 50%;
@@ -190,6 +213,10 @@ h1 {
     font-size: 1.5rem;
 }
 
+.menu ul li:first-child {
+    margin-top: 24px;
+}
+
 .menu ul li {
     margin-bottom: 28px;
 }
@@ -201,4 +228,11 @@ h1 {
 .menu ul {
     padding-top: 36px;
     padding-left: 24px;
+}
+
+@media (min-width: 700px)
+{
+  .burger-btn-menu {
+    display: none;
+  }
 }
