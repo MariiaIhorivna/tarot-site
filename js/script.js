@@ -7,5 +7,7 @@ const buttonMenu = document.querySelector('.burger-btn-menu');
 const navMenu = document.querySelector('.menu');
 
 buttonMenu.addEventListener('click', () => {
-    navMenu.classList.add('_active');
+    document.body.classList.toggle('_lock');
+    buttonMenu.classList.toggle('_active');
+    navMenu.classList.toggle('_active');
 })
