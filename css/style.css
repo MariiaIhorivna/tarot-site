@@ -498,6 +498,10 @@ footer p {
     overflow-x: hidden;
   }
 
+  .feedback-card {
+    flex: 0 0 480px;
+  }
+
   .slider-btn {
     position: absolute;
     top: 50%;
