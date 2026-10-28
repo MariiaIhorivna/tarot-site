@@ -3,7 +3,7 @@
 :root {
     --black: #100C14;
     --primary-color: rgb(89, 60, 143);
-    --secondary-color: #A98ED4;
+    --secondary-color: rgb(169, 142, 212);
     --accent-color: #D4AF6A;
     --text-color: #F4EFF7;
     --tg-color: #2299D5;
@@ -218,8 +218,10 @@ h2 {
     left: 0;
 }
 
-.menu ul li a{
+.menu a{
+    display: inline-block;
     font-size: 2rem;
+    transition: all 0.3s ease;
 }
 
 .menu ul li:first-child {
@@ -269,8 +271,12 @@ section {
   text-align: start;
 }
 
-.feedback-card h3, .service-card h3, .question-card h3 {
+.feedback-card h3, .question-card h3 {
   font-size: 1.7rem;
+}
+
+.service-card h3 {
+  font-size: 1.55rem;
 }
 
 .slider-btn {
@@ -285,11 +291,50 @@ section {
 }
 
 .service-card {
+  display: flex;           
+  flex-direction: column;
   text-align: center;
   background-color: var(--primary-color);
   border-radius: 12px;
+  padding: 20px;
+  transition: background-color 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.service-card p {
+  margin-bottom: 20px;
+}
+
+.price-card p:last-child {
+  width: 60%;              
+  margin-left: auto;       
+  margin-right: auto;
   padding: 12px;
-  transition: transform 0.3s ease;
+  font-weight: 900;
+  border: solid 2px var(--accent-color);
+  border-radius: 36px;
+  margin-top: auto;
+}
+
+.price-card li {
+  position: relative;
+  font-size: 1.2rem;
+  padding-left: 28px;
+}
+
+.service-card li::before {
+  content: "✦";        
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f1c40f;    
+}
+
+.price-card ul {
+  max-width: 85%;
+  text-align: left;
+  margin: 16px 0;
+  padding: 0;
 }
 
 .question-card {
@@ -327,11 +372,17 @@ section {
 }
 
 .qtn-answer {
-  display: none;
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
 }
 
-.question-card._active .qtn-answer { 
-  display: block; 
+.question-card._active .qtn-answer {
+    max-height: 200px;    
+    padding-top: 12px;     
+    opacity: 1;
 }
 
 .question-card._active .icon-arrow {
@@ -355,26 +406,10 @@ footer {
   text-transform: uppercase;
 }
 
-.contacts-footer {
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.contacts-footer h3 {
-  font-size: 1.4rem;
-}
-
-address a {
-  transition: transform 0.3s ease;
-}
-
-address {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--accent-color);
-  margin-top: 12px;
-  padding: 4px 0;
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+#services > h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 15px var(--accent-color);
 }
 
 footer p {
@@ -394,6 +429,7 @@ footer p {
   padding: 8px 24px;
   border-radius: 12px;
   margin-top: 16px;
+  transition: all 0.3s ease;  
 }
 
 .btn-contact:first-child {
@@ -491,11 +527,16 @@ footer p {
   }
 
   #about-me p {
+    text-indent: 20px;
     text-align: justify;
   }
 
   .feedbacks-container {
     overflow-x: hidden;
+  }
+
+  #feedbacks {
+    position: relative;
   }
 
   .feedback-card {
@@ -530,7 +571,12 @@ footer p {
 }
 
 @media (hover: hover) {
-   .btn-num:hover {
+   .menu a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+   }
+  
+  .btn-num:hover {
     transform: translateY(-2px);
     border-color: #FFD700;
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
@@ -548,13 +594,8 @@ footer p {
  }
 
  .service-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 0 16px rgba(255, 215, 0, 0.7); 
-  }
-
-  address a:hover {
-    transform: translateY(-1px);
-    text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+    filter: brightness(1.08); 
+    border: 2px solid var(--accent-color);
   }
 
   .btn-contact:hover {
