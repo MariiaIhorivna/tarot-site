@@ -6,11 +6,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const buttonMenu = document.querySelector('.burger-btn-menu');
 const navMenu = document.querySelector('.menu');
+const containerBurgerMenu = document.querySelector('.container-btn-burger-menu');
 
 buttonMenu.addEventListener('click', () => {
     document.body.classList.toggle('_lock');
     buttonMenu.classList.toggle('_active');
     navMenu.classList.toggle('_active');
+    containerBurgerMenu.classList.toggle('_active');
 })
 
 function renderCards(items, containerId) {
