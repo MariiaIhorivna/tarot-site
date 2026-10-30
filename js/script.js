@@ -1,3 +1,4 @@
+// Prevent auto-scrolling to anchor on page load
 window.addEventListener('DOMContentLoaded', () => {
   if (window.location.hash) {
     history.replaceState(null, null, window.location.pathname + window.location.search);
@@ -8,13 +9,14 @@ const buttonMenu = document.querySelector('.burger-btn-menu');
 const navMenu = document.querySelector('.menu');
 const containerBurgerMenu = document.querySelector('.container-btn-burger-menu');
 
+// Logic for burger menu
 buttonMenu.addEventListener('click', () => {
     document.body.classList.toggle('_lock');
     buttonMenu.classList.toggle('_active');
     navMenu.classList.toggle('_active');
-    containerBurgerMenu.classList.toggle('_active');
 })
 
+// Render service cards (use for process JSON array from fetch in function renderServices)
 function renderCards(items, containerId) {
   const container = document.getElementById(containerId);
 
@@ -35,6 +37,7 @@ function renderCards(items, containerId) {
   `).join("");
 }
 
+// Process JSON (info about services)
 async function renderServices() {
   const response = await fetch("json/services.json");
   const data = await response.json();
@@ -44,6 +47,7 @@ async function renderServices() {
   renderCards(data["self-development"], "self-development");
 } 
 
+// Render price cards and process JSON
 async function renderPrice() {
   const response = await fetch("json/price.json");
   const data = await response.json();
@@ -65,6 +69,7 @@ async function renderPrice() {
   `).join("");
 }
 
+// Render feedback cards and process JSON
 async function renderFeedbacks() {
   const response = await fetch("json/feedbacks.json");
   const data = await response.json();
@@ -83,6 +88,7 @@ async function renderFeedbacks() {
   `).join("");
 }
 
+// Render question cards and process JSON
 async function renderQuestions() {
   const response = await fetch("json/questions.json");
   const data = await response.json();
@@ -104,7 +110,7 @@ async function renderQuestions() {
   `).join("");
 }
 
-
+// For slider (feedback section)
 const slider = document.querySelector('.feedbacks-container');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
@@ -132,13 +138,17 @@ prevBtn.addEventListener('click', () => {
     });
 });
 
+// Open answers to questions in question section
 const container = document.getElementById('question-container');
 
 if (container) {
     container.addEventListener('click', (event) => {
         const button = event.target.closest('.qtn-btn');
         
-        if (!button) return;
+        if (!button) 
+        {
+          return;
+        }
 
         const card = button.closest('.question-card');
         if (card) {
@@ -147,6 +157,7 @@ if (container) {
     });
 }
 
+// Function calls for loading and rendering data from JSON
 renderFeedbacks();
 renderServices();
 renderPrice();
