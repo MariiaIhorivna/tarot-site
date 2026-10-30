@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Cormorant+Infant:ital,wght@0,300..700;1,300..700&display=swap');
-
+/* Mobile-First Approach (Base styles for mobile viewport) */
+/* Color scheme */
 :root {
     --black: #100C14;
     --primary-color: rgb(89, 60, 143);
     --secondary-color: rgb(169, 142, 212);
-    --accent-color: #efce80;
+    --accent-color: #FFD700;
     --text-color: #F4EFF7;
     --tg-color: #2299D5;
     --viber-color: #7360F2;
     --instagram-color: #E1306C;
 }
 
+/* Standard properties */
 *,
 *::before,
 *::after {
@@ -24,53 +26,13 @@ html {
   scroll-behavior: smooth;
 }
 
-body, h1, h2, h3, h4, p,
-figure, blockquote, dl, dd {
+body, h1, h2, h3, h4, p {
   margin-block-end: 0;
 }
 
 ul[role="list"],
 ol[role="list"] {
   list-style: none;
-}
-
-body {
-  position: relative;
-  font-family: "Cormorant Infant", "Times New Roman", serif;
-  min-height: 100vh;
-  line-height: 1.5;
-  background-color: var(--black);
-  color: var(--text-color);
-  overflow-x: hidden;
-  font-size: 1rem;
-  margin: 0;
-}
-
-body::before {
-  content: "";
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url(../assets/img/tarot-background.jpg);
-  background-size: cover;
-  background-position: center;
-  opacity: 0.35; 
-  filter: blur(4px); 
-  pointer-events: none; 
-  z-index: -1;
-}
-
-body._lock {
-  overflow: hidden;
-}
-
-.page-content {
-  position: relative;
-  z-index: 1; 
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 h1, h2, h3, h4,
@@ -105,12 +67,52 @@ textarea, select {
   font-size: inherit;
 }
 
-textarea:not([rows]) {
-  min-height: 10em;
-}
-
 :target {
   scroll-margin-block: 10ex;
+}
+
+/* Project styles */
+
+body {
+  position: relative;
+  font-family: "Cormorant Infant", "Times New Roman", serif;
+  min-height: 100vh;
+  line-height: 1.5;
+  background-color: var(--black);
+  color: var(--text-color);
+  overflow-x: hidden;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Background image placed under a black overlay */
+
+body::before {
+  content: "";
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../assets/img/tarot-background.jpg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35; 
+  filter: blur(4px); 
+  pointer-events: none; 
+  z-index: -1;
+}
+
+/* Disable page scrolling when the burger menu is open */
+body._lock {
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+  z-index: 1; 
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .main-section {
@@ -211,7 +213,7 @@ header {
     display: block;
     height: 3px;       
     width: 100%;   
-    background-color: #FFD700;    
+    background-color: var(--accent-color);    
     transition: transform 0.3s ease, opacity 0.3s ease; 
 }
 
@@ -237,15 +239,15 @@ header {
     transition: all 0.3s ease;
 }
 
-.menu ul li:first-child {
+.menu li:first-child {
     margin-top: 24px;
 }
 
-.menu ul li {
+.menu li {
     margin-bottom: 28px;
 }
 
-.menu ul li:last-child {
+.menu li:last-child {
     margin-bottom: 0;
 }
 
@@ -474,7 +476,7 @@ footer p {
 }
 
 .btn-instagram::before {
-  background-image: url("../assets/img/Instagram_Logo.svg");
+  background-image: url("../assets/img/Instagram_logo.svg");
 }
 
 .btn-viber, .btn-instagram {
@@ -489,6 +491,7 @@ footer p {
   color: var(--instagram-color);
 }
 
+/* Desktop Styles */
 @media (min-width: 1200px)
 {
   .container-btn-burger-menu {
@@ -506,7 +509,7 @@ footer p {
     transition: none;
   }
 
-  .page-content {
+  main {
     padding-top: 120px;
   }
 
@@ -519,11 +522,11 @@ footer p {
     margin: 0;
   }
 
-  .menu ul li {
+  .menu li {
     margin-bottom: 0; 
   }
 
-  .menu ul li:first-child {
+  .menu li:first-child {
     margin-top: 0;
   }
 
@@ -581,6 +584,7 @@ footer p {
   }
 }
 
+/* Hover effects only for devices with a mouse/pointer */
 @media (hover: hover) {
    .menu a:hover {
     transform: translateY(-2px);
