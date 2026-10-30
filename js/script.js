@@ -16,98 +16,168 @@ buttonMenu.addEventListener('click', () => {
     navMenu.classList.toggle('_active');
 })
 
+function throwError (response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+}
+
+function doesContainerExist (container, title)
+{
+  if (!container) {
+      throw new Error(`${title} container not found`);
+    }
+}
+
 // Render service cards (use for process JSON array from fetch in function renderServices)
 function renderCards(items, containerId) {
   const container = document.getElementById(containerId);
 
-  container.innerHTML = items.map(item => `
-    <article class="service-card">
-        <h3>${item.title}</h3>
+    doesContainerExist(container, 'Service');
 
-        <p>${item.description} 
-        ${item.extra ? `
-            <br>(наприклад,  
-            ${item.extra.map(extra =>
-              `«<em>${extra}</em>»`
-            ).join(", ")}
-            )
-        ` : ""}
-        </p>
-      </article>
-  `).join("");
+    container.innerHTML = items.map(item => `
+      <article class="service-card">
+          <h3>${item.title}</h3>
+
+          <p>${item.description} 
+          ${item.extra ? `
+              <br>(наприклад,  
+              ${item.extra.map(extra =>
+                `«<em>${extra}</em>»`
+              ).join(", ")}
+              )
+          ` : ""}
+          </p>
+        </article>
+    `).join("");
 }
 
 // Process JSON (info about services)
 async function renderServices() {
-  const response = await fetch("json/services.json");
-  const data = await response.json();
+  try {
+    const response = await fetch("json/services.json");
 
-  renderCards(data.relationship, "relationship");
-  renderCards(data.career, "career");
-  renderCards(data["self-development"], "self-development");
+    throwError(response);
+
+    const data = await response.json();
+
+    renderCards(data.relationship, "relationship");
+    renderCards(data.career, "career");
+    renderCards(data["self-development"], "self-development");
+  } catch (error)
+  {
+    console.error('Сталася помилка:', error);
+  }
 } 
+
+// TODO: Improve error handling in the future:
+// add specific error messages for each category
 
 // Render price cards and process JSON
 async function renderPrice() {
-  const response = await fetch("json/price.json");
-  const data = await response.json();
+  try {
+    const response = await fetch("json/price.json");
 
-  const container = document.getElementById('price-container');
+    throwError(response);
 
-  container.innerHTML = data.map(item => `
-    <article class="service-card price-card">
-        <h3>${item.title}</h3>
-        ${item.first_part ? `<p>${item.first_part}</p>` : ''}
-        <ul role="list">
-          ${item.items_for_list ? item.items_for_list.map(listItem => `<li>${listItem}</li>`).join('') : ''}
-        </ul>
-        ${item.last_part ? `<p>${item.last_part}
-          ${item.line_break ? `<br>${item.line_break}` : ''}
-        </p>` : ''}
-        <p>${item.price} грн</p>
-      </article>
-  `).join("");
+    const data = await response.json();
+
+    const container = document.getElementById('price-container');
+
+    doesContainerExist(container, 'Price');
+
+    container.innerHTML = data.map(item => `
+      <article class="service-card price-card">
+          <h3>${item.title}</h3>
+          ${item.first_part ? `<p>${item.first_part}</p>` : ''}
+          <ul role="list">
+            ${item.items_for_list ? item.items_for_list.map(listItem => `<li>${listItem}</li>`).join('') : ''}
+          </ul>
+          ${item.last_part ? `<p>${item.last_part}
+            ${item.line_break ? `<br>${item.line_break}` : ''}
+          </p>` : ''}
+          <p>${item.price} грн</p>
+        </article>
+    `).join("");
+  } catch (error) {
+    console.error('Сталася помилка:', error);
+
+    const container = document.getElementById('price-container');
+
+    if (container) {
+        container.textContent = 'Не вдалося завантажити тарифи. Спробуйте пізніше.';
+    }
+  }
 }
 
 // Render feedback cards and process JSON
 async function renderFeedbacks() {
-  const response = await fetch("json/feedbacks.json");
-  const data = await response.json();
+  try {
+    const response = await fetch("json/feedbacks.json");
 
-  const container = document.getElementById('feedback-container');
+    throwError(response);
 
-  container.innerHTML = data.map(item => `
-    <article class="feedback-card">
-        <h3>${item.name}</h3>
-        <p>${item.feedback} 
-        ${Array.isArray(item.lineBreak) 
-          ? item.lineBreak.map(line => `<br>${line}`).join("") 
-          : (item.lineBreak ? `<br>${item.lineBreak}` : "")}
-        </p>
-      </article>
-  `).join("");
+    const data = await response.json();
+
+    const container = document.getElementById('feedback-container');
+
+    doesContainerExist(container, 'Feedback');
+
+    container.innerHTML = data.map(item => `
+      <article class="feedback-card">
+          <h3>${item.name}</h3>
+          <p>${item.feedback} 
+          ${Array.isArray(item.lineBreak) 
+            ? item.lineBreak.map(line => `<br>${line}`).join("") 
+            : (item.lineBreak ? `<br>${item.lineBreak}` : "")}
+          </p>
+        </article>
+    `).join("");
+  } catch (error) {
+    console.error('Сталася помилка:', error);
+    const container = document.getElementById('feedback-container');
+
+    if (container) {
+        container.textContent = 'Не вдалося завантажити відгуки. Спробуйте пізніше.';
+    }
+  }
 }
 
 // Render question cards and process JSON
 async function renderQuestions() {
-  const response = await fetch("json/questions.json");
-  const data = await response.json();
+  try {
+    const response = await fetch("json/questions.json");
 
-  const container = document.getElementById('question-container');
+    throwError(response);
 
-  container.innerHTML = data.map(item => `
-    <article class="question-card">
-        <div class="question-title-btn-container">
-            <h3>${item.title}</h3>
-            <button class="qtn-btn">
-                <svg class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-        </div>
-        <p class="qtn-answer">${item.description}</p>
-      </article>
-  `).join("");
+    const data = await response.json();
+
+    const container = document.getElementById('question-container');
+
+    doesContainerExist(container, 'Question');
+
+    container.innerHTML = data.map(item => `
+      <article class="question-card">
+          <div class="question-title-btn-container">
+              <h3>${item.title}</h3>
+              <button class="qtn-btn">
+                  <svg class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              </button>
+          </div>
+          <p class="qtn-answer">${item.description}</p>
+        </article>
+    `).join("");
+  } catch (error) {
+    console.error('Сталася помилка:', error);
+
+    const container = document.getElementById('question-container');
+
+    if (container) {
+        container.textContent = 'Не вдалося завантажити запитання. Спробуйте пізніше.';
+    }
+  }
 }
 
 // For slider (feedback section)
