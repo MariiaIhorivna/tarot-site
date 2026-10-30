@@ -19,3 +19,9 @@ A responsive website developed for an individual tarot reader to present her ser
 ## Project Purpose
 
 A freelance web development project created for an individual service provider.
+
+## License
+
+All rights reserved.
+The source code is provided for viewing purposes only.
+No permission is granted to use, copy, modify, or distribute this code without prior written permission.
