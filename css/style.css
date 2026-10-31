@@ -535,6 +535,7 @@ footer p {
   .main-section {
     padding-top: 24px;
     flex-direction: row;
+    justify-content: center;
   }
 
   .main-section > div img {
